@@ -20,11 +20,15 @@ import jose.rodriguez.everis.peru.app.models.service.StudentService;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+//RESTU FULL USANDO REST-CONTROLLER
+
 @RestController
-@RequestMapping("/api/students")
+@RequestMapping("/api/everis/students") 
 public class StudentsController {
 
-	@Autowired
+
+  
+ 	@Autowired
 	private StudentService service;
 	
 	
@@ -57,7 +61,7 @@ public class StudentsController {
 			p.setTypeDocument(student.getTypeDocument());
 			p.setDocument(student.getDocument());
 			return service.save(p);
-		}).map(p -> ResponseEntity.created(URI.create("/api/students/".concat(p.getId())))
+		}).map(p -> ResponseEntity.created(URI.create("/api/everis/students/".concat(p.getId())))
 				.body(p)).defaultIfEmpty(ResponseEntity.notFound().build());
 		
 		
@@ -72,5 +76,7 @@ public class StudentsController {
 					
 				}).defaultIfEmpty(new ResponseEntity<Void>(HttpStatus.NOT_FOUND));
 	}
+ 
+
 	
 }

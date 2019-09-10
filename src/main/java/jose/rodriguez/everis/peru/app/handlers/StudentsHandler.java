@@ -15,8 +15,11 @@ import jose.rodriguez.everis.peru.app.models.service.StudentService;
 import reactor.core.publisher.Mono;
 
 
+//USO DE FUNCIONAL ENDPOINTS
+
 @Component
 public class StudentsHandler {
+
 
 	
 	@Autowired
@@ -57,7 +60,7 @@ public class StudentsHandler {
 			db.setDocument(req.getDocument());
 			
 			return db;
-			}).flatMap(p -> ServerResponse.created(URI.create("/api/v2/student/".concat(p.getId())))
+			}).flatMap(p -> ServerResponse.created(URI.create("/api/student/".concat(p.getId())))
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.body(service.save(p), Student.class))
 				.switchIfEmpty(ServerResponse.notFound().build());
