@@ -3,6 +3,7 @@ package jose.rodriguez.everis.peru.app;
 import static org.springframework.web.reactive.function.server.RequestPredicates.DELETE;
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.RequestPredicates.PUT;
+import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 
@@ -29,9 +30,10 @@ public class FunctionRouters {
 			*/	
 						
 		return route(GET("/api/students").or(GET("/api/v1.0.0/students")), handler::listar)
-				.andRoute(GET("/api/students/{id}").or(GET("/api/v1.0.0/students")), handler::ver)
-				.andRoute(PUT("/api/students/{id}").or(PUT("/api/v1.0.0/students")), handler::editar)
-				.andRoute(DELETE("/api/students/{id}").or(DELETE("/api/v1.0.0/students")), handler::eliminar);
+				.andRoute(GET("/api/students/{id}").or(GET("/api/v1.0.0/students/{id}")), handler::ver)
+				.andRoute(POST("/api/students").or(GET("/api/v1.0.0/students")), handler::crear)
+				.andRoute(PUT("/api/students/{id}").or(PUT("/api/v1.0.0/students/{id}")), handler::editar)
+				.andRoute(DELETE("/api/students/{id}").or(DELETE("/api/v1.0.0/students/{id}")), handler::eliminar);
 
 	}
 	

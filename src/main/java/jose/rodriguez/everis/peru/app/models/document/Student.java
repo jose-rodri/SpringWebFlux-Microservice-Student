@@ -2,6 +2,9 @@ package jose.rodriguez.everis.peru.app.models.document;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,12 +21,17 @@ public class Student{
 	
 	@Id
 	private String id;
+	@NotEmpty
 	private String name;
+	@NotEmpty
 	private String lastName;
+	@NotEmpty
 	private String gender;
 	@DateTimeFormat(pattern = "yyy-MM-dd")
 	private Date date;
+	@NotEmpty
 	private String typeDocument;
+	@NotNull
 	private int document;
 	
 	
