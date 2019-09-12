@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.support.WebExchangeBindException;
 
-
+import jose.rodriguez.everis.peru.app.models.dao.StudentDao;
 import jose.rodriguez.everis.peru.app.models.document.Student;
 import jose.rodriguez.everis.peru.app.models.service.StudentService;
 import reactor.core.publisher.Flux;
@@ -37,14 +38,19 @@ public class StudentsController {
 
 
   
- 	@Autowired
-	private StudentService service;
-	
-	
-	//listar estudiante
-	@GetMapping
-	public Mono <ResponseEntity<Flux<Student>>>listar(){
-		return Mono.just(
+  @Autowired
+  private StudentService service;
+
+  @Autowired
+  private StudentDao dao;
+
+  //listar estudiante
+  /*
+   * */
+  
+  @GetMapping
+  public Mono<ResponseEntity<Flux<Student>>> listar() {
+    return Mono.just(
 	
 				ResponseEntity.ok()
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -118,6 +124,34 @@ public class StudentsController {
 				.defaultIfEmpty(ResponseEntity.notFound().build());
 	}
 	
+	
+	
+	
+	
+	
+	//buscar un estudiante por  de 
+		@GetMapping("nombre/{name}")
+		public Flux<Student> buscarNombre(@PathVariable("name") String name){
+			return service.findByName(name);
+		}
+		
+		
+		@GetMapping("dni/{document}")
+		public Mono<Student> buscarDocumento(@PathVariable("document") int document){
+			return dao.findByDocument(document);
+		}
+		
+		
+		
+		@GetMapping("fecha/{date}/{date1}")
+		public Flux<Student> buscarFecha(@PathVariable("date")@DateTimeFormat( iso = ISO.DATE) Date date,
+											   @PathVariable("date1")@DateTimeFormat( iso = ISO.DATE)  Date date1){
+			return service.findByDateBetween(date, date1);
+		}
+		
+		
+		
+		
 	//Actualizar un estudiante
 	@PutMapping("/{id}")
 	public Mono<ResponseEntity<Student>>editar(@RequestBody Student student , @PathVariable String id){

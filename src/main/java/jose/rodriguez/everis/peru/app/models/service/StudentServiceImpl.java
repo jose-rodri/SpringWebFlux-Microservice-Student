@@ -1,5 +1,7 @@
 package jose.rodriguez.everis.peru.app.models.service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,30 +16,13 @@ public class StudentServiceImpl implements StudentService {
 
 	@Autowired
 	private StudentDao dao;
-	
+
 	@Override
 	public Flux<Student> findAll() {
-		
+		// TODO Auto-generated method stub
 		return dao.findAll();
 	}
 
-	@Override
-	public Mono<Student> findByName(String name) {
-	
-		return dao.findById(name);
-	}
-
-	@Override
-	public Mono<Student> findByDocument(String dni) {
-	
-		return dao.findById(dni);
-	}
-
-	@Override
-	public Mono<Student> findByBetweenDate() {
-	
-		return null;
-	}
 
 	@Override
 	public Mono<Student> findById(String id) {
@@ -53,8 +38,39 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public Mono<Void> delete(Student students) {
-		
+		// TODO Auto-generated method stub
 		return dao.delete(students);
 	}
 
+
+
+	@Override
+	public Flux<Student> findByName(String name) {
+		
+		return dao.findByName(name);
+	}
+
+
+	@Override
+	public Mono<Student>findByDocument(int document) {
+	
+		return dao.findByDocument(document);
+	}
+
+
+	@Override
+	public Flux<Student> findByDateBetween(Date date, Date date1) {
+		
+		return dao.findByDateBetween(date, date1);
+	}
+
+
+
+
+
+
+
+
+	
+	
 }

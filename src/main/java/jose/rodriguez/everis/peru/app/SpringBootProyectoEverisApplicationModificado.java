@@ -41,7 +41,7 @@ public class SpringBootProyectoEverisApplicationModificado implements CommandLin
 		
 		mongoTemplate.dropCollection("students").subscribe();
 	
-
+/*
 		
 		Flux.just(new Student("Jose", "Rodriguez","M","Dni",98574858),
 					new Student("Elena", "Marin","F","Dni",98574453),
@@ -57,7 +57,7 @@ public class SpringBootProyectoEverisApplicationModificado implements CommandLin
 			})
 		.subscribe(st -> log.info("Insert: " + st.getId() + " " + st.getLastName()));
 		
-	
+	*/
 		
 	
 	}
