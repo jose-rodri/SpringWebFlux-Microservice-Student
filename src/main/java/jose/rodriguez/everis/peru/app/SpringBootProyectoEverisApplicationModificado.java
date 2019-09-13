@@ -13,9 +13,11 @@ import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import jose.rodriguez.everis.peru.app.models.document.Student;
 import jose.rodriguez.everis.peru.app.models.service.StudentService;
 import reactor.core.publisher.Flux;
+import springfox.documentation.swagger2.annotations.EnableSwagger2WebFlux;
 
 
 @SpringBootApplication
+@EnableSwagger2WebFlux
 public class SpringBootProyectoEverisApplicationModificado implements CommandLineRunner {
 
 
@@ -41,7 +43,7 @@ public class SpringBootProyectoEverisApplicationModificado implements CommandLin
 		
 		mongoTemplate.dropCollection("students").subscribe();
 	
-/*
+
 		
 		Flux.just(new Student("Jose", "Rodriguez","M","Dni",98574858),
 					new Student("Elena", "Marin","F","Dni",98574453),
@@ -57,7 +59,7 @@ public class SpringBootProyectoEverisApplicationModificado implements CommandLin
 			})
 		.subscribe(st -> log.info("Insert: " + st.getId() + " " + st.getLastName()));
 		
-	*/
+	
 		
 	
 	}
