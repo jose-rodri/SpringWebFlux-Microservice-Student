@@ -12,8 +12,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
+import lombok.Data;
 
 
+@Data
 @Document(collection = "students")
 public class Student {
   @Id
@@ -50,7 +52,9 @@ public class Student {
     this.document = document;
   }
 
-  public String getId() {
+ 
+
+public String getId() {
     return id;
   }
 

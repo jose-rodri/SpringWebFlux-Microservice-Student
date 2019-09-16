@@ -131,8 +131,8 @@ public class StudentsController {
 	
 	//buscar un estudiante por  de 
 		@GetMapping("nombre/{name}")
-		public Flux<Student> buscarNombre(@PathVariable("name") String name){
-			return service.findByName(name);
+		public Mono<Student> buscarNombre(@PathVariable("name") String name){
+			return service.obtenerPorNombre(name);
 		}
 		
 		
@@ -167,6 +167,8 @@ public class StudentsController {
 		
 		
 	}
+
+	
 	
 	//Eliminar un estudiante
 	@DeleteMapping("/{id}")

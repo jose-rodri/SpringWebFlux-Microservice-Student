@@ -9,17 +9,13 @@ import reactor.core.publisher.Mono;
 public interface StudentService {
 
 	public Flux<Student>findAll();
-	public Flux<Student>findByName(String name);
+	public Mono<Student> obtenerPorNombre(String name);
+//	public Flux<Student>findByName(String name);
 	public Mono<Student>findById(String id);
 	public Mono<Student>save(Student students);
 	public Mono<Void>delete(Student students);
-
 	public Mono<Student>findByDocument(int document);
-	
 	public Flux<Student>findByDateBetween(Date date, Date date1);
-	
-	
-	
-	
+   
 	
 }

@@ -43,14 +43,6 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 
-
-	@Override
-	public Flux<Student> findByName(String name) {
-		
-		return dao.findByName(name);
-	}
-
-
 	@Override
 	public Mono<Student>findByDocument(int document) {
 	
@@ -62,6 +54,12 @@ public class StudentServiceImpl implements StudentService {
 	public Flux<Student> findByDateBetween(Date date, Date date1) {
 		
 		return dao.findByDateBetween(date, date1);
+	}
+
+	@Override
+	public Mono<Student> obtenerPorNombre(String name) {
+		// TODO Auto-generated method stub
+		return dao.obtenerPorNombre(name);
 	}
 
 
