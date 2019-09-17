@@ -1,24 +1,20 @@
 package jose.rodriguez.everis.peru.app.models.dao;
 
-import jose.rodriguez.everis.peru.app.models.document.Student;
-
 import java.util.Date;
-
-import org.springframework.data.mongodb.repository.Query;
+import jose.rodriguez.everis.peru.app.models.document.Student;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**.
+ * @author José LQ Rodriguez
+ *
+ */
 public interface StudentDao extends ReactiveMongoRepository<Student, String> {
+  Mono<Student> findByName(String name);
 
- // Flux<Student> findByName(String name);
-  
   Mono<Student> findByDocument(int document);
-  
-  Flux<Student>findByDateBetween(Date date, Date date1);
-  
-  //Para correr el test
-  
- 	@Query("{ 'name': ?0 }")
-	public Mono<Student> obtenerPorNombre(String name);
+
+  Flux<Student> findByDateBetween(Date date, Date date1);
+
 }
