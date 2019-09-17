@@ -47,7 +47,8 @@ public class SpringBootProyectoEverisApplicationModificado implements CommandLin
 
   @Override
   public void run(String... args) throws Exception {
-
+    
+    /*
     mongoTemplate.dropCollection("students").subscribe();
 
 
@@ -66,7 +67,7 @@ public class SpringBootProyectoEverisApplicationModificado implements CommandLin
             + "- Date : " + st.getDate() + " " + "- TypeDocument : " + st.getTypeDocument() + " "
             + "- Document : " + st.getDocument()));
 
-
+*/
 
   }
 

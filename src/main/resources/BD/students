@@ -1,0 +1,93 @@
+use student
+
+db.students.insert([
+{
+"name": "Katty",
+"lastName": "Garcia",
+"gender": "F",
+"date": ISODate("2000-01-02"),
+"typeDocument": "Dni",
+"document": 98574212
+},
+{
+"name": "Elena",
+"lastName": "Marin",
+"gender": "F",
+"date": ISODate("2001-02-03"),
+"typeDocument": "Dni",
+"document": 98574453
+},
+{
+"name": "Pedro",
+"lastName": "Miffling",
+"gender": "M",
+"date": ISODate("2002-03-04"),
+"typeDocument": "Dni",
+"document": 98574333
+},
+{
+"name": "Joan",
+"lastName": "Flux",
+"gender": "M",
+"date": ISODate("2003-04-05"),
+"typeDocument": "Dni",
+"document": 98574323
+},
+{
+"name": "Royer",
+"lastName": "Sanchez",
+"gender": "M",
+"date": ISODate("2004-03-06"),
+"typeDocument": "Dni",
+"document": 98574000
+},
+{
+"name": "Jose",
+"lastName": "Rodriguez",
+"gender": "M",
+"date": ISODate("2005-05-07"),
+"typeDocument": "Dni",
+"document": 98574858
+},
+{
+"name": "Yulia",
+"lastName": "De la Riva",
+"gender": "F",
+"date": ISODate("2006-09-08"),
+"typeDocument": "Dni",
+"document": 98574111
+}
+,
+{
+"name": "Mae",
+"lastName": "Hann",
+"gender": "F",
+"date": ISODate("2007-05-09"),
+"typeDocument": "Dni",
+"document": 58756959
+},
+{
+"name": "Soyla",
+"lastName": "Neto",
+"gender": "F",
+"date": ISODate("2008-04-10"),
+"typeDocument": "Dni",
+"document": 23025487
+}
+,
+{
+"name": "Issac",
+"lastName": "Lain",
+"gender": "M",
+"date": ISODate("2009-09-11"),
+"typeDocument": "Dni",
+"document": 54878969
+},
+{
+"name": "Dora",
+"lastName": "Chen",
+"gender": "F",
+"date": ISODate("2010-04-12"),
+"typeDocument": "Dni",
+"document": 14632659
+}])
