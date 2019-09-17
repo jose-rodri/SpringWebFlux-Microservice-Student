@@ -6,13 +6,16 @@ import java.util.Date;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
 
 
-@Data
+@Getter
+@Setter
 @Document(collection = "students")
 public class Student {
   @Id
@@ -30,23 +33,19 @@ public class Student {
   private String typeDocument;
   @NotNull
   private int document;
-
-  public Student() {}
-
-  /**
-   * a.
-   */
-
-
-  public Student(String name, String lastName, String gender, String typeDocument, int document) {
-
+  
+  public Student( String name,  String lastName,  String gender,
+      Date date,  String typeDocument,  int document) {
+   
     this.name = name;
     this.lastName = lastName;
     this.gender = gender;
+    this.date = date;
     this.typeDocument = typeDocument;
     this.document = document;
   }
 
+ 
 
 
 }

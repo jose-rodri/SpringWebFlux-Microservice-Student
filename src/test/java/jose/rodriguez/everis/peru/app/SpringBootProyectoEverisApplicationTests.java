@@ -1,6 +1,8 @@
 package jose.rodriguez.everis.peru.app;
 
+import java.net.URI;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import jose.rodriguez.everis.peru.app.models.document.Student;
 import jose.rodriguez.everis.peru.app.models.service.StudentService;
@@ -11,8 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import reactor.core.publisher.Mono;
 
 
@@ -68,7 +73,7 @@ public class SpringBootProyectoEverisApplicationTests {
   public void updateTest() {
 
     Student student = service.findByName("Elena").block();
-    Student studentEditado = new Student("Elena", "Mendeil", "F", "dni", 58788878);
+    Student studentEditado = new Student("Elena", "Mendeil", "F",new Date(), "dni", 58788878);
     client.put().uri("/api/everis/students/{id}", Collections.singletonMap("id", student.getId()))
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -131,19 +136,20 @@ public class SpringBootProyectoEverisApplicationTests {
 
   }
 
-  /*
-   * 
-   * @Test public void crearTest() { Student student = new Student("Zen","Jaedon","Show","M",
-   * 98696632); client.post() .uri("/api/everis/students")
-   * .contentType(MediaType.APPLICATION_JSON_UTF8) .accept(MediaType.APPLICATION_JSON_UTF8)
-   * .body(Mono.just(student), Student.class).exchange() .expectStatus().isOk()
-   * .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8) .expectBody()
-   * .jsonPath("$.id").isNotEmpty() .jsonPath("$.name").isEqualTo("Zen");
-   * 
-   * }
+  
+  /**
+   * . s
    */
-   
-    
+  @Test
+  public void saveTest() {
+    Student student = new Student("Julio", "Zeu", "M", new Date(), "dni", 87774444);
+    client.post().uri("/api/everis/students").contentType(MediaType.APPLICATION_JSON_UTF8)
+        .accept(MediaType.APPLICATION_JSON_UTF8).body(Mono.just(student), Student.class).exchange()
+        .expectStatus().isCreated().expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+        .expectBody().jsonPath("$.id").isNotEmpty().jsonPath("$.name").isEqualTo("Julio");
+
+  }
+ 
 
   /*
    * @Test public void FindByDateBetweenTest() { Flux<List<Student>> student = (Flux<List<Student>>)

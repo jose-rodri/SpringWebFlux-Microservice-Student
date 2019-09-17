@@ -52,16 +52,19 @@ public class SpringBootProyectoEverisApplicationModificado implements CommandLin
 
 
 
-    Flux.just(new Student("Jose", "Rodriguez", "M", "Dni", 98574858),
-        new Student("Elena", "Marin", "F", "Dni", 98574453),
-        new Student("Katty", "Garcia", "F", "Dni", 98574212),
-        new Student("Yulia", "De la Riva", "F", "Dni", 98574111),
-        new Student("Joan", "Flux", "M", "Dni", 98574323),
-        new Student("Pedro", "Miffling", "M", "Dni", 98574333),
-        new Student("Royer", "Sanchez", "M", "Dni", 98574000)).flatMap(std -> {
+    Flux.just(new Student("Jose", "Rodriguez", "M", new Date(), "Dni", 98574858),
+        new Student("Elena", "Marin", "F", new Date(), "Dni", 98574453),
+        new Student("Katty", "Garcia", "F", new Date(), "Dni", 98574212),
+        new Student("Yulia", "De la Riva", "F", new Date(), "Dni", 98574111),
+        new Student("Joan", "Flux", "M", new Date(), "Dni", 98574323),
+        new Student("Pedro", "Miffling", "M", new Date(), "Dni", 98574333),
+        new Student("Royer", "Sanchez", "M", new Date(), "Dni", 98574000)).flatMap(std -> {
           std.setDate(new Date());
           return service.save(std);
-        }).subscribe(st -> log.info("Insert: " + st.getId() + " " + st.getLastName()));
+        }).subscribe(st -> log.info("- Id : " + st.getId() + " " + "- Name : " + st.getName() + " "
+            + "- LastName : " + st.getLastName() + " " + "- Gender : " + st.getGender() + " "
+            + "- Date : " + st.getDate() + " " + "- TypeDocument : " + st.getTypeDocument() + " "
+            + "- Document : " + st.getDocument()));
 
 
 

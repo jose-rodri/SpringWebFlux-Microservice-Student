@@ -28,7 +28,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**.
- * USO ACTUAL DE REST FULL , CON SU PACKAGE TEST 
+ * p
  */
 @RestController
 @RequestMapping("/api/everis/students")
@@ -53,75 +53,22 @@ public class StudentsController {
         ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8).body(service.findAll()));
   }
 
-  /*
-   *  // crear sin validación de errores
-   *  
-   * @PostMapping public Mono<ResponseEntity<Student>> crear( @RequestBody Student student){
-   * if(student.getDate()== null) { student.setDate(new Date()); } return
-   * service.save(student).map(p -> ResponseEntity
-   * .created(URI.create("/api/everis/students/".concat(p.getId())))
-   * .contentType(MediaType.APPLICATION_JSON_UTF8) .body(p));
-   * 
-   * }
-   * 
-   */
+ 
   
 
-  /**.
-   * Método Crear y validación de errores
+  /**
+   * . Método Crear
    */
   @PostMapping
-  public Mono<ResponseEntity<Map<String, Object>>> save(
-      @Valid @RequestBody Mono<Student> monoStudent) {
-
-    Map<String, Object> respuesta = new HashMap<String, Object>();
-
-    return monoStudent.flatMap(student -> {
-      if (student.getDate() == null) {
-        student.setDate(new Date());
-      }
-
-
-      return service.save(student).map(p -> {
-        respuesta.put("Student ", p);
-        respuesta.put("Message ","Student created successfully");
-        respuesta.put("Date", new Date());
-        return ResponseEntity.created(URI.create("/api/everis/students/".concat(p.getId())))
-            
-            .contentType(MediaType.APPLICATION_JSON_UTF8).body(respuesta);
-
-
-      });
-    }).onErrorResume(t -> {
-      return Mono.just(t).cast(WebExchangeBindException.class)
-          .flatMap(e -> Mono.just(e.getFieldErrors())).flatMapMany(Flux::fromIterable)
-          .map(fieldError -> "El campo " + fieldError.getField() + " "
-              + fieldError.getDefaultMessage())
-          .collectList().flatMap(list -> {
-            respuesta.put("errors", list);
-            respuesta.put("date ", new Date());
-            respuesta.put("status", HttpStatus.BAD_REQUEST.value());
-            return Mono.just(ResponseEntity.badRequest().body(respuesta));
-          });
-
-    });
-
+  public Mono<ResponseEntity<Student>> save(@RequestBody Student student) {
+    if (student.getDate() == null) {
+      student.setDate(new Date());
+    }
+    return service.save(student)
+        .map(p -> ResponseEntity.created(URI.create("/api/everis/students/".concat(p.getId())))
+            .contentType(MediaType.APPLICATION_JSON_UTF8).body(p));
 
   }
-
-  /*
-  
-  @PostMapping
-  public Mono<Student> crear(
-      @RequestBody Student student){
-    return service.save(student);
-    
-    
-  
-  }
-  */
-
-
 
   
   
@@ -163,7 +110,7 @@ public class StudentsController {
   public Flux<Student> findByDateBetween(
       @PathVariable("date") @DateTimeFormat(iso = ISO.DATE) Date date,
       @PathVariable("date1") @DateTimeFormat(iso = ISO.DATE) Date date1) {
-    return service.findByDateBetween(date, date1);
+      return service.findByDateBetween(date, date1);
   }
 
 
