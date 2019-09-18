@@ -1,4 +1,4 @@
-use student
+use everisdata
 
 db.students.insert([
 {
