@@ -34,6 +34,12 @@ public class Student {
   @NotNull
   private int document;
   
+
+  public Student() {
+   
+  }
+  
+  
   public Student( String name,  String lastName,  String gender,
       Date date,  String typeDocument,  int document) {
    
