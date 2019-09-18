@@ -1,4 +1,4 @@
-package jose.rodriguez.everis.peru.app;
+package jose.rodriguez.everis.peru.app.controller;
 
 
 import java.util.Collections;
@@ -21,7 +21,7 @@ import reactor.core.publisher.Mono;
 @RunWith(SpringRunner.class)
 @AutoConfigureWebTestClient
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class SpringBootProyectoEverisApplicationTests {
+public class testController {
 
   @Autowired
   private StudentService service;

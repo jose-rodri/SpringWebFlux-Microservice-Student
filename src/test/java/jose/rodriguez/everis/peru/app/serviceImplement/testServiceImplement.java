@@ -126,9 +126,8 @@ public class testServiceImplement {
     p.setDate(new Date());
     p.setTypeDocument("dni");
     p.setDocument(96895756);
-    final String name = "736723727";
-    when(studentDao.findByName(name)).thenReturn(Mono.just(p));
-    Mono<Student> actual = studentService.findByName(name);
+    when(studentDao.findByName("Mae")).thenReturn(Mono.just(p));
+    Mono<Student> actual = studentService.findByName("Mae");
     assertResults(actual, p);
   }
 
