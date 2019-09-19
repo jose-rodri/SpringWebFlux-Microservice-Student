@@ -47,11 +47,12 @@ public class SpringBootProyectoEverisApplicationModificado implements CommandLin
 
   @Override
   public void run(String... args) throws Exception {
+   
     
     /*
-    mongoTemplate.dropCollection("students").subscribe();
+    
 
-
+ mongoTemplate.dropCollection("students").subscribe();
 
     Flux.just(new Student("Jose", "Rodriguez", "M", new Date(), "Dni", 98574858),
         new Student("Elena", "Marin", "F", new Date(), "Dni", 98574453),

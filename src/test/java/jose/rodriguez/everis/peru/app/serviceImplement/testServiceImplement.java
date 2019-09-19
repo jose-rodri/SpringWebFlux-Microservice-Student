@@ -71,7 +71,7 @@ public class testServiceImplement {
 
 
   @Test
-  public void findById_when_ID_NO_exist() {
+  public void idInvalid() {
     Student p = new Student();
     p.setId("iiiiiiiii");
     p.setName("Mae");
@@ -134,6 +134,6 @@ public class testServiceImplement {
 
   
   
-  
+
 
 }
