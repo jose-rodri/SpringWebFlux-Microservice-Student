@@ -138,14 +138,14 @@ public class SpringBootProyectoEverisApplicationTests {
   
   @Test
   public void eliminarTest() {
-    Student student = service.findByName("Soyla").block();
+    Student student = service.findByName("Katty").block();
     client.delete()
         .uri("/api/everis/students/{id}", Collections.singletonMap("id", student.getId()))
         .exchange().expectStatus().isNoContent().expectBody().isEmpty();
   }
 
 
-  
+  //
   
   
 
