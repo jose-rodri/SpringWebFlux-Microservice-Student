@@ -2,6 +2,7 @@ package jose.rodriguez.everis.peru.app.controller;
 
 
 import java.util.Collections;
+
 import java.util.Date;
 import java.util.List;
 import jose.rodriguez.everis.peru.app.models.document.Student;
@@ -44,62 +45,58 @@ public class SpringBootProyectoEverisApplicationTests {
 
   }
 
- 
 
-  
+
   @Test
   public void findByIdTest() {
 
-    Student parent = service.findByName("Issac").block();
+    Student student = service.findByName("Issac").block();
+    if (student != null) {
+      client.get().uri("/api/everis/students/{id}", Collections.singletonMap("id", student.getId()))
+          .accept(MediaType.APPLICATION_JSON_UTF8).exchange().expectStatus().isOk().expectHeader()
+          .contentType(MediaType.APPLICATION_JSON_UTF8).expectBody(Student.class)
+          .consumeWith(response -> {
+            Student p = response.getResponseBody();
+            Assertions.assertThat(p.getId()).isNotEmpty();
+            Assertions.assertThat(p.getId().length() > 0).isTrue();
+            Assertions.assertThat(p.getName()).isEqualTo("Issac");
 
-    client.get().uri("/api/everis/students/{id}", Collections.singletonMap("id", parent.getId()))
-        .accept(MediaType.APPLICATION_JSON_UTF8).exchange().expectStatus().isOk().expectHeader()
-        .contentType(MediaType.APPLICATION_JSON_UTF8).expectBody(Student.class)
-        .consumeWith(response -> {
-          Student p = response.getResponseBody();
-          Assertions.assertThat(p.getId()).isNotEmpty();
-          Assertions.assertThat(p.getId().length() > 0).isTrue();
-          Assertions.assertThat(p.getName()).isEqualTo("Issac");
-
-        });
-
+          });
+    }
   }
 
 
-
- 
 
   @Test
   public void findByNameTest() {
 
     Student student = service.findByName("Mae").block();
+    if (student != null) {
+      client.get()
+          .uri("/api/everis/students/name/{name}",
+              Collections.singletonMap("name", student.getName()))
+          .accept(MediaType.APPLICATION_JSON_UTF8).exchange().expectStatus().isOk().expectBody()
+          .jsonPath("$.name").isEqualTo("Mae");
 
-    client.get()
-        .uri("/api/everis/students/name/{name}",
-         Collections.singletonMap("name", student.getName()))
-        .accept(MediaType.APPLICATION_JSON_UTF8).exchange().expectStatus().isOk().expectBody()
-        .jsonPath("$.name").isEqualTo("Mae");
-        
-
+    }
   }
 
-  
 
-  
+
   @Test
   public void findByDocumentTest() {
 
     Student student = service.findByName("Elena").block();
-
-    client.get()
-        .uri("/api/everis/students/dni/{document}",
-            Collections.singletonMap("document", student.getDocument()))
-        .accept(MediaType.APPLICATION_JSON_UTF8).exchange().expectStatus().isOk().expectBody()
-        .jsonPath("$.name").isEqualTo("Elena");
-
+    if (student != null) {
+      client.get()
+          .uri("/api/everis/students/dni/{document}",
+              Collections.singletonMap("document", student.getDocument()))
+          .accept(MediaType.APPLICATION_JSON_UTF8).exchange().expectStatus().isOk().expectBody()
+          .jsonPath("$.name").isEqualTo("Elena");
+    }
   }
 
-  
+
   /**
    * . s
    */
@@ -112,41 +109,39 @@ public class SpringBootProyectoEverisApplicationTests {
         .expectBody().jsonPath("$.id").isNotEmpty().jsonPath("$.name").isEqualTo("Julio");
 
   }
- 
-  
-  
+
+
 
   @Test
   public void updateTest() {
-    Student parent = service.findByName("Royer").block();
-    Student parentEditado = new Student("Royer", "Flux", "M", new Date(), "dni", 58788878);
-    client.put().uri("/api/everis/students/{id}", Collections.singletonMap("id", parent.getId()))
-        .contentType(MediaType.APPLICATION_JSON_UTF8).accept(MediaType.APPLICATION_JSON_UTF8)
-        .body(Mono.just(parentEditado), Student.class).exchange().expectStatus().isCreated()
-        .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
-        .expectBody()
-        .jsonPath("$.id").isNotEmpty()
-        .jsonPath("$.name").isEqualTo("Royer")
-        .jsonPath("$.lastName").isEqualTo("Flux")
-        .jsonPath("$.gender").isEqualTo("M")
-        .jsonPath("$.typeDocument").isEqualTo("dni")
-        .jsonPath("$.document").isEqualTo(58788878);
+    Student student = service.findByName("Royer").block();
+    if (student != null) {
+      Student studentEditado = new Student("Royer", "Flux", "M", new Date(), "dni", 58788878);
+      client.put().uri("/api/everis/students/{id}", Collections.singletonMap("id", student.getId()))
+          .contentType(MediaType.APPLICATION_JSON_UTF8).accept(MediaType.APPLICATION_JSON_UTF8)
+          .body(Mono.just(studentEditado), Student.class).exchange().expectStatus().isCreated()
+          .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8).expectBody().jsonPath("$.id")
+          .isNotEmpty().jsonPath("$.name").isEqualTo("Royer").jsonPath("$.lastName")
+          .isEqualTo("Flux").jsonPath("$.gender").isEqualTo("M").jsonPath("$.typeDocument")
+          .isEqualTo("dni").jsonPath("$.document").isEqualTo(58788878);
 
+    }
   }
 
-  
-  
+
   @Test
   public void eliminarTest() {
+
     Student student = service.findByName("Royer").block();
-    client.delete()
-        .uri("/api/everis/students/{id}", Collections.singletonMap("id", student.getId()))
-        .exchange().expectStatus().isNoContent().expectBody().isEmpty();
+    if (student != null) {
+      client.delete()
+          .uri("/api/everis/students/{id}", Collections.singletonMap("id", student.getId()))
+          .exchange().expectStatus().isNoContent().expectBody().isEmpty();
+    }
+
   }
-
-
   //
-  
-  
+
+
 
 }
