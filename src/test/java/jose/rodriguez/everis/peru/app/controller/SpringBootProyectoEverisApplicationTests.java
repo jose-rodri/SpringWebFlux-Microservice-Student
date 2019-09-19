@@ -21,7 +21,7 @@ import reactor.core.publisher.Mono;
 @RunWith(SpringRunner.class)
 @AutoConfigureWebTestClient
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class testController {
+public class SpringBootProyectoEverisApplicationTests {
 
   @Autowired
   private StudentService service;
@@ -46,58 +46,23 @@ public class testController {
 
  
 
+  
   @Test
   public void findByIdTest() {
 
-    Student student = service.findByName("Katty").block();
+    Student parent = service.findByName("Issac").block();
 
-    client.get().uri("/api/everis/students/{id}", Collections.singletonMap("id", student.getId()))
+    client.get().uri("/api/everis/students/{id}", Collections.singletonMap("id", parent.getId()))
         .accept(MediaType.APPLICATION_JSON_UTF8).exchange().expectStatus().isOk().expectHeader()
         .contentType(MediaType.APPLICATION_JSON_UTF8).expectBody(Student.class)
         .consumeWith(response -> {
-          Student s = response.getResponseBody();
-          Assertions.assertThat(s.getId()).isNotEmpty();
-          Assertions.assertThat(s.getId().length() > 0).isTrue();
-          Assertions.assertThat(s.getName()).isEqualTo("Katty");
+          Student p = response.getResponseBody();
+          Assertions.assertThat(p.getId()).isNotEmpty();
+          Assertions.assertThat(p.getId().length() > 0).isTrue();
+          Assertions.assertThat(p.getName()).isEqualTo("Issac");
 
         });
 
-  }
-
- 
-  
-  @Test
-  public void updateTest() {
-
-    Student student = service.findByName("Elena").block();
-    Student studentEditado = new Student("Elena", "Mendeil", "F",new Date(), "dni", 58788878);
-    client.put().uri("/api/everis/students/{id}", Collections.singletonMap("id", student.getId()))
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
-        .accept(MediaType.APPLICATION_JSON_UTF8)
-        .body(Mono.just(studentEditado), Student.class)
-        .exchange().expectStatus().isCreated()
-        .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
-        .expectBody()
-        .jsonPath("$.id").isNotEmpty()
-        .jsonPath("$.name").isEqualTo("Elena")
-        .jsonPath("$.lastName").isEqualTo("Mendeil")
-        .jsonPath("$.gender").isEqualTo("F")
-        .jsonPath("$.typeDocument").isEqualTo("dni")
-        .jsonPath("$.document").isEqualTo(58788878);
-
-  }
-
-
-  
-
-
-
-  @Test
-  public void eliminarTest() {
-    Student student = service.findByName("Pedro").block();
-    client.delete()
-        .uri("/api/everis/students/{id}", Collections.singletonMap("id", student.getId()))
-        .exchange().expectStatus().isNoContent().expectBody().isEmpty();
   }
 
 
@@ -107,29 +72,30 @@ public class testController {
   @Test
   public void findByNameTest() {
 
-    Student student = service.findByName("Elena").block();
+    Student student = service.findByName("Mae").block();
 
     client.get()
         .uri("/api/everis/students/name/{name}",
          Collections.singletonMap("name", student.getName()))
         .accept(MediaType.APPLICATION_JSON_UTF8).exchange().expectStatus().isOk().expectBody()
-        .jsonPath("$.name").isEqualTo("Elena");
+        .jsonPath("$.name").isEqualTo("Mae");
         
 
   }
 
   
+
   
   @Test
   public void findByDocumentTest() {
 
-    Student student = service.findByName("Jose").block();
+    Student student = service.findByName("Elena").block();
 
     client.get()
         .uri("/api/everis/students/dni/{document}",
             Collections.singletonMap("document", student.getDocument()))
         .accept(MediaType.APPLICATION_JSON_UTF8).exchange().expectStatus().isOk().expectBody()
-        .jsonPath("$.document").isEqualTo(98574858);
+        .jsonPath("$.name").isEqualTo("Elena");
 
   }
 
@@ -147,23 +113,40 @@ public class testController {
 
   }
  
+  
+  
 
-  /*
-   * @Test public void FindByDateBetweenTest() { Flux<List<Student>> student = (Flux<List<Student>>)
-   * service.findByDateBetween(new Date() , new Date()).collectList().block(); //Student student =
-   * service.findByDocument(98574323).block(); client.get()
-   * .uri("/api/everis/students/fecha/{date}/{date1}" , Collections.singletonMap("date","date1",
-   * ((Date) student).getDate())) .accept(MediaType.APPLICATION_JSON_UTF8) .exchange()
-   * .expectStatus().isOk() .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
-   * .expectBody(Student.class) .consumeWith(response ->{ Student s = response.getResponseBody();
-   * Assertions.assertThat(s.getId()).isNotEmpty();
-   * Assertions.assertThat(s.getId().length()>0).isTrue();
-   * Assertions.assertThat(s.getDate()).isEqualTo(98574212);
-   * 
-   * });
-   * 
-   * }
-   * 
-   */
+  @Test
+  public void updateTest() {
+    Student parent = service.findByName("Royer").block();
+    Student parentEditado = new Student("Royer", "Flux", "M", new Date(), "dni", 58788878);
+    client.put().uri("/api/everis/students/{id}", Collections.singletonMap("id", parent.getId()))
+        .contentType(MediaType.APPLICATION_JSON_UTF8).accept(MediaType.APPLICATION_JSON_UTF8)
+        .body(Mono.just(parentEditado), Student.class).exchange().expectStatus().isCreated()
+        .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+        .expectBody()
+        .jsonPath("$.id").isNotEmpty()
+        .jsonPath("$.name").isEqualTo("Royer")
+        .jsonPath("$.lastName").isEqualTo("Flux")
+        .jsonPath("$.gender").isEqualTo("M")
+        .jsonPath("$.typeDocument").isEqualTo("dni")
+        .jsonPath("$.document").isEqualTo(58788878);
+
+  }
+
+  
+  
+  @Test
+  public void eliminarTest() {
+    Student student = service.findByName("Soyla").block();
+    client.delete()
+        .uri("/api/everis/students/{id}", Collections.singletonMap("id", student.getId()))
+        .exchange().expectStatus().isNoContent().expectBody().isEmpty();
+  }
+
+
+  
+  
+  
 
 }
