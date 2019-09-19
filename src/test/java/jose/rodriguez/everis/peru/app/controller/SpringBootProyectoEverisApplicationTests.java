@@ -138,7 +138,7 @@ public class SpringBootProyectoEverisApplicationTests {
   
   @Test
   public void eliminarTest() {
-    Student student = service.findByName("Katty").block();
+    Student student = service.findByName("Royer").block();
     client.delete()
         .uri("/api/everis/students/{id}", Collections.singletonMap("id", student.getId()))
         .exchange().expectStatus().isNoContent().expectBody().isEmpty();
