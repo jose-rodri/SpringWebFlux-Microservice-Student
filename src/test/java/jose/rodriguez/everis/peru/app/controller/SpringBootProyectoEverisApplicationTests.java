@@ -102,7 +102,7 @@ public class SpringBootProyectoEverisApplicationTests {
    */
   @Test
   public void saveTest() {
-    Student student = new Student("Julio", "Zeu", "M", new Date(), "dni", 87774444);
+    Student student = new Student("Julio", "Zeu", "M", new Date(), "dni", 87774444,15);
     client.post().uri("/api/everis/students").contentType(MediaType.APPLICATION_JSON_UTF8)
         .accept(MediaType.APPLICATION_JSON_UTF8).body(Mono.just(student), Student.class).exchange()
         .expectStatus().isCreated().expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -116,7 +116,7 @@ public class SpringBootProyectoEverisApplicationTests {
   public void updateTest() {
     Student student = service.findByName("Royer").block();
     if (student != null) {
-      Student studentEditado = new Student("Royer", "Flux", "M", new Date(), "dni", 58788878);
+      Student studentEditado = new Student("Royer", "Flux", "M", new Date(), "dni", 58788878,15);
       client.put().uri("/api/everis/students/{id}", Collections.singletonMap("id", student.getId()))
           .contentType(MediaType.APPLICATION_JSON_UTF8).accept(MediaType.APPLICATION_JSON_UTF8)
           .body(Mono.just(studentEditado), Student.class).exchange().expectStatus().isCreated()

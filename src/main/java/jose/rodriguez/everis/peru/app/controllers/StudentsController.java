@@ -127,6 +127,7 @@ public class StudentsController {
       p.setGender(student.getGender());
       p.setTypeDocument(student.getTypeDocument());
       p.setDocument(student.getDocument());
+      p.setNote(student.getNote());
       return service.save(p);
     }).map(
         p -> ResponseEntity.created(URI.create("/api/everis/students/".concat(p.getId()))).body(p))

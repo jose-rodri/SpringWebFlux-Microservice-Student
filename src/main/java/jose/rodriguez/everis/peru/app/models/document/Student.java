@@ -29,16 +29,33 @@ public class Student {
   @JsonFormat(pattern = "yyyy-MM-dd", shape = Shape.STRING)
   private Date date;
   @NotEmpty
-
+  
   private String typeDocument;
   @NotNull
   private int document;
   
+  private int note;
 
   public Student() {
    
   }
+
+  public Student( String name,  String lastName,  String gender,
+      Date date,  String typeDocument,  int document, int note) {
+ 
+    this.name = name;
+    this.lastName = lastName;
+    this.gender = gender;
+    this.date = date;
+    this.typeDocument = typeDocument;
+    this.document = document;
+    this.note = note;
+  }
   
+  
+  
+  
+  /*
   
   public Student( String name,  String lastName,  String gender,
       Date date,  String typeDocument,  int document) {
@@ -50,7 +67,7 @@ public class Student {
     this.typeDocument = typeDocument;
     this.document = document;
   }
-
+*/
  
 
 
